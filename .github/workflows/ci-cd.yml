@@ -1,4 +1,4 @@
-
+# CI/CD pipeline: lint, build, and deploy to staging and production
 name: CI/CD Deployment Pipeline
 
 on:
