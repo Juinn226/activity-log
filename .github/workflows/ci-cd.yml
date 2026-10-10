@@ -94,7 +94,7 @@ jobs:
             
   # AI agent: summarize commits into draft release notes (READ-ONLY)
   release-notes-agent:
-    needs: build
+    needs: [deploy-staging, build]
     runs-on: ubuntu-latest
     # Guardrail 1: least-privilege, READ-ONLY permissions
     permissions:
@@ -142,7 +142,7 @@ jobs:
 
   # Job 3: Deploy to production
   deploy-production:
-    needs: [deploy-staging, build]
+    needs: release-notes-agent
     runs-on: ubuntu-latest
     environment: production
     permissions:
