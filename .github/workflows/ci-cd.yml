@@ -12,8 +12,27 @@ permissions:
   contents: read
 
 jobs:
+  # Job 0: Lint check before building
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run commit lint
+        run: bun run lint:commit
+        
   # Job 1: Build once
   build:
+    needs: lint
     runs-on: ubuntu-latest
 
     steps:
